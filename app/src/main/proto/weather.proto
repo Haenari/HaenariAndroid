@@ -1,0 +1,10 @@
+syntax = "proto3";
+
+option java_package = "com.haenari.haenari";
+
+message WeatherData {
+  uint64 updateTime = 1;
+  float minTemperature = 2;
+  float maxTemperature = 3;
+  int32 skyStatus = 4;
+}

@@ -6,5 +6,5 @@ interface RetrofitProvider {
 
     fun build(baseUrl: String): Retrofit
 
-    fun sampleAPI(): SampleAPI
+    fun weatherAPI(): WeatherAPI
 }

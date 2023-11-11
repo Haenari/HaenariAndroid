@@ -19,8 +19,8 @@ android {
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
-        buildConfigField("String", "WEATHER_SERVICE_KEY", "qedFiFxzLxPqXaXQgI/ho/3QwkH+yrAbafDh7sHia6t742ZhF0Nn5AhDKcl4bm5qWKj+xmcNmG6h1djZTiiB2g==")
-        buildConfigField("String", "WEATHER_URL", "http://apis.data.go.kr/1360000/")
+        buildConfigField("String", "WEATHER_SERVICE_KEY", "\"qedFiFxzLxPqXaXQgI/ho/3QwkH+yrAbafDh7sHia6t742ZhF0Nn5AhDKcl4bm5qWKj+xmcNmG6h1djZTiiB2g==\"")
+        buildConfigField("String", "WEATHER_URL", "\"http://apis.data.go.kr/1360000/\"")
     }
 
     buildTypes {

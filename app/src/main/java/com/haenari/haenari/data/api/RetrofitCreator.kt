@@ -1,6 +1,7 @@
 package com.haenari.haenari.data.api
 
 import com.google.gson.GsonBuilder
+import com.haenari.haenari.BuildConfig
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -36,7 +37,7 @@ class RetrofitCreator: RetrofitProvider {
         return builder.build()
     }
 
-    private val sample by lazy { build("sample url") }
+    private val weather by lazy { build(BuildConfig.WEATHER_URL) }
 
-    override fun sampleAPI(): SampleAPI = sample.create(SampleAPI::class.java)
+    override fun weatherAPI(): WeatherAPI = weather.create(WeatherAPI::class.java)
 }

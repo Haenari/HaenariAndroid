@@ -45,6 +45,22 @@ android {
     }
 }
 
+protobuf {
+    protoc {
+        artifact = Plugin.protoc
+    }
+
+    generateProtoTasks {
+        all().forEach { task ->
+            task.builtins {
+                register("java") {
+                    option("lite")
+                }
+            }
+        }
+    }
+}
+
 dependencies {
 
     // androidX

@@ -56,6 +56,9 @@ protobuf {
                 register("java") {
                     option("lite")
                 }
+                register("kotlin") {
+                    option("lite")
+                }
             }
         }
     }
@@ -87,7 +90,8 @@ dependencies {
     implementation(Dependencies.AndroidX.DATA_STORE_CORE)
     implementation(Dependencies.AndroidX.DATA_STORE_PREFERENCES)
     implementation(Dependencies.AndroidX.DATA_STORE_PREFERENCES_CORE)
-    implementation(Dependencies.Google.PROTOBUF)
+    implementation(Dependencies.Google.PROTOBUF_JAVA)
+    implementation(Dependencies.Google.PROTOBUF_KOTLIN)
 
     // room
     implementation(Dependencies.AndroidX.ROOM_RUNTIME)

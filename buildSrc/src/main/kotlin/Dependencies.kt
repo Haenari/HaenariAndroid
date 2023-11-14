@@ -40,7 +40,8 @@ object Dependencies {
         const val HILT = "${default}.dagger:hilt-android:${hiltVersion}"
         const val HILT_COMPILER = "${default}.dagger:hilt-compiler:${hiltVersion}"
         const val MATERIAL = "${default}.android.material:material:${materialVersion}"
-        const val PROTOBUF = "${default}.protobuf:protobuf-javalite:${protobufVersion}"
+        const val PROTOBUF_JAVA = "${default}.protobuf:protobuf-javalite:${protobufVersion}"
+        const val PROTOBUF_KOTLIN = "${default}.protobuf:protobuf-kotlin-lite:${protobufVersion}"
     }
 
     object Kotlin {

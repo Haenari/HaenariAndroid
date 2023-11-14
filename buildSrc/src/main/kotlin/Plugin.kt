@@ -12,7 +12,7 @@ object Plugin {
         const val library = "8.1.1"
         const val kotlin = "1.9.0"
         const val hilt = "2.48.1"
-        const val protobuf = "0.9.0"
+        const val protobuf = "0.9.3"
         const val protoc = "3.25.0"
     }
 }

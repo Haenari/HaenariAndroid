@@ -16,6 +16,8 @@ import java.io.OutputStream
 const val SAMPLE_PREFERENCES_NAME = "sample_preferences"
 const val WEATHER_PREFERENCES_NAME = "weather_preferences"
 
+const val WEATHER_PROTO_FILE_NAME = "weather.proto"
+
 object PreferencesKey {
     val SAMPLE_STRING = "sample_string"
 
@@ -46,4 +48,8 @@ val Context.weatherPreferencesDataStore: DataStore<Preferences> by preferencesDa
 /**
  * proto DataStore
  */
-val Context.weatherProtoDataStore: DataStore<WeatherData> by dataStore(fileName = "weather.proto", serializer = WeatherDataSerializer)
+
+val Context.weatherProtoDataStore: DataStore<WeatherData> by dataStore(
+    fileName = WEATHER_PROTO_FILE_NAME,
+    serializer = WeatherDataSerializer
+)

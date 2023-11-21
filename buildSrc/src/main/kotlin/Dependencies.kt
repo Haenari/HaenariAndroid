@@ -79,4 +79,10 @@ object Dependencies {
         const val ESPRESSO = "${default}.espresso:espresso-core:${espressoVersion}"
         const val JUNIT = "${default}.ext:junit:${junitVersion}"
     }
+
+    object ThirdParty {
+        private const val jodaTimeVersion = "2.10.6"
+
+        const val JODA_TIME = "joda-time:joda-time:${jodaTimeVersion}"
+    }
 }

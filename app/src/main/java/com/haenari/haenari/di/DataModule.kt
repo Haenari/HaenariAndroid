@@ -68,9 +68,10 @@ class DataModule {
     @Singleton
     @Provides
     fun providesWeatherLocalDataSource(
+        prefDataStore: DataStore<Preferences>,
         protoDataStore: DataStore<WeatherData>,
         dao: WeatherDao
-    ): WeatherLocalDataSource = WeatherLocalDataSource(protoDataStore, dao)
+    ): WeatherLocalDataSource = WeatherLocalDataSource(prefDataStore, protoDataStore, dao)
 
     @Singleton
     @Provides

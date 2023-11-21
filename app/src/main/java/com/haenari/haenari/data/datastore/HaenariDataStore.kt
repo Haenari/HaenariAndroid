@@ -5,6 +5,7 @@ import androidx.datastore.core.DataStore
 import androidx.datastore.core.Serializer
 import androidx.datastore.dataStore
 import androidx.datastore.preferences.core.Preferences
+import androidx.datastore.preferences.core.longPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
 import com.haenari.haenari.Weather.WeatherData
 import java.io.InputStream
@@ -25,6 +26,10 @@ object PreferencesKey {
      * weather
      */
     val WEATHER_SAVE_TIME = "weather_save_time"
+
+    val SHORT_TERM_CACHING_TIME = longPreferencesKey("short_term_caching_time")
+    val MID_TERM_LAND_CACHING_TIME = longPreferencesKey("mid_term_land_caching_time")
+    val MID_TERM_TEMPERATURE_CACHING_TIME = longPreferencesKey("mid_term_temperature_caching_time")
 }
 
 object WeatherDataSerializer : Serializer<WeatherData> {

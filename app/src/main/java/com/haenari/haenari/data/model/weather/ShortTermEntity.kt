@@ -2,7 +2,11 @@ package com.haenari.haenari.data.model.weather
 
 data class ShortTermEntity(
     var response: ShortTermResponse? = ShortTermResponse()
-)
+) {
+    fun getItems(): List<ShortTermItem> {
+        return response?.body?.items?.item ?: emptyList()
+    }
+}
 
 data class ShortTermResponse(
     var header: ShortTermHeader? = ShortTermHeader(),

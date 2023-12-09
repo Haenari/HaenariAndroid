@@ -10,8 +10,12 @@ import com.haenari.haenari.data.database.HaenariDatabase
 @Entity(tableName = HaenariDatabase.WEATHER_TABLE)
 @TypeConverters(WeatherTypeConverter::class)
 data class WeatherEntity(
-    @PrimaryKey val date: String,
-    @ColumnInfo val value: List<Weather>
+    @PrimaryKey val date: String = "",
+    @ColumnInfo val value: List<Weather> = emptyList(),
+    @ColumnInfo val minTemperature: Float = Float.MAX_VALUE,
+    @ColumnInfo val maxTemperature: Float = Float.MAX_VALUE,
+    @ColumnInfo val weatherAM: String = "",
+    @ColumnInfo val weatherPM: String = ""
 )
 
 data class Weather(

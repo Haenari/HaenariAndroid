@@ -11,22 +11,26 @@ import com.haenari.haenari.data.database.HaenariDatabase
 @TypeConverters(WeatherTypeConverter::class)
 data class WeatherEntity(
     @PrimaryKey val date: String = "",
-    @ColumnInfo val value: List<Weather> = emptyList(),
     @ColumnInfo val minTemperature: Float = Float.MAX_VALUE,
     @ColumnInfo val maxTemperature: Float = Float.MAX_VALUE,
-    @ColumnInfo val weatherAM: String = "",
-    @ColumnInfo val weatherPM: String = ""
+    @ColumnInfo val probabilityOfPrecipitationAM: Int = Int.MAX_VALUE,
+    @ColumnInfo val probabilityOfPrecipitationPM: Int = Int.MAX_VALUE,
+    @ColumnInfo val weatherAM: Pair<Int, Int> = Int.MAX_VALUE to Int.MAX_VALUE,
+    @ColumnInfo val weatherPM: Pair<Int, Int> = Int.MAX_VALUE to Int.MAX_VALUE,
+    @ColumnInfo val value: List<Weather> = emptyList(),
 )
 
 data class Weather(
     val temperature: Float,
-    val skyStatus: String,
-    val probabilityOfPrecipitation: Int
+    val skyStatus: Int,
+    val probabilityOfPrecipitation: Int,
+    val precipitationType: Int
 ) {
     companion object {
         fun defaultValue() = Weather(
             Float.MAX_VALUE,
-            "",
+            Int.MAX_VALUE,
+            Int.MAX_VALUE,
             Int.MAX_VALUE
         )
     }

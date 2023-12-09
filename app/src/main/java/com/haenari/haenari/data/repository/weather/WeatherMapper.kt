@@ -28,8 +28,6 @@ object WeatherMapper {
             val mutableList = MutableList(24) { Weather.defaultValue() }
             var maxTemperature = Float.MAX_VALUE
             var minTemperature = Float.MAX_VALUE
-            var weatherAM = Int.MAX_VALUE to Int.MAX_VALUE
-            var weatherPM = Int.MAX_VALUE to Int.MAX_VALUE
             var skyStatusAM = Int.MAX_VALUE
             var skyStatusPM = Int.MAX_VALUE
             var precipitationTypeAM = Int.MAX_VALUE
@@ -112,8 +110,6 @@ object WeatherMapper {
                         }
                     }
                 }
-                weatherAM = skyStatusAM to precipitationTypeAM
-                weatherPM = skyStatusPM to precipitationTypePM
                 mutableList[hour] = Weather(
                     temperature = temperature,
                     skyStatus = skyStatus,
@@ -125,10 +121,12 @@ object WeatherMapper {
                 date = date,
                 minTemperature = minTemperature,
                 maxTemperature = maxTemperature,
+                precipitationTypeAM = precipitationTypeAM,
+                precipitationTypePM = precipitationTypePM,
                 probabilityOfPrecipitationAM = probabilityOfPrecipitationAM,
                 probabilityOfPrecipitationPM = probabilityOfPrecipitationPM,
-                weatherAM = weatherAM,
-                weatherPM = weatherPM,
+                skyStatusAM = skyStatusAM,
+                skyStatusPM = skyStatusPM,
                 value = mutableList,
             )
         }

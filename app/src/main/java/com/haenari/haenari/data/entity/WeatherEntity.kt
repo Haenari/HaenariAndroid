@@ -13,10 +13,12 @@ data class WeatherEntity(
     @PrimaryKey val date: String = "",
     @ColumnInfo val minTemperature: Float = Float.MAX_VALUE,
     @ColumnInfo val maxTemperature: Float = Float.MAX_VALUE,
+    @ColumnInfo val precipitationTypeAM: Int = Int.MAX_VALUE,
+    @ColumnInfo val precipitationTypePM: Int = Int.MAX_VALUE,
     @ColumnInfo val probabilityOfPrecipitationAM: Int = Int.MAX_VALUE,
     @ColumnInfo val probabilityOfPrecipitationPM: Int = Int.MAX_VALUE,
-    @ColumnInfo val weatherAM: Pair<Int, Int> = Int.MAX_VALUE to Int.MAX_VALUE,
-    @ColumnInfo val weatherPM: Pair<Int, Int> = Int.MAX_VALUE to Int.MAX_VALUE,
+    @ColumnInfo val skyStatusAM: Int = Int.MAX_VALUE,
+    @ColumnInfo val skyStatusPM: Int = Int.MAX_VALUE,
     @ColumnInfo val value: List<Weather> = emptyList(),
 )
 

@@ -5,4 +5,14 @@
     <string name="weather">weather</string>
     <string name="wearing">wearing</string>
     <string name="settings">settings</string>
+
+    <string name="privacy_policy">개인 정보 처리 방침</string>
+    <string name="terms_of_service">서비스 이용 약관</string>
+    <string name="version_info">버전 정보 v %s</string>
+
+    <string name="tab_title_home">오늘 뭐입지?</string>
+    <string name="tab_title_weather">이번주 날씨는?</string>
+    <string name="tab_title_wearing">의상</string>
+
+    <string name="updated">\u0020%s업데이트됨</string>
 </resources>

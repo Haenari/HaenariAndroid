@@ -21,6 +21,9 @@ android {
 
         buildConfigField("String", "WEATHER_SERVICE_KEY", "\"qedFiFxzLxPqXaXQgI/ho/3QwkH+yrAbafDh7sHia6t742ZhF0Nn5AhDKcl4bm5qWKj+xmcNmG6h1djZTiiB2g==\"")
         buildConfigField("String", "WEATHER_URL", "\"http://apis.data.go.kr/1360000/\"")
+
+        buildConfigField("String", "URL_PRIVACY_POLICY", "\"https://freezing-lyre-e84.notion.site/b4d29ad367044f3bb2723344c3f368da\"")
+        buildConfigField("String", "URL_TERMS_AND_CONDITIONS", "\"https://freezing-lyre-e84.notion.site/a9048dae6fd841feb6026c71647d34be\"")
     }
 
     buildTypes {

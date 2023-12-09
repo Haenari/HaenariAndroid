@@ -3,5 +3,5 @@ object AppConfig {
     const val minSdk = 24
     const val targetSdk = 34
     const val versionCode = 1
-    const val versionName = "0.0.0"
+    const val versionName = "beta 0.0.0"
 }

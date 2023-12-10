@@ -3,6 +3,8 @@ package com.haenari.haenari
 @Deprecated("Need to refactor later...")
 object LegacyUtil {
 
+    // todo fix throwable...
+    // 대응할 수 있는 대응점이 없음(지금은)
     fun Int.handleAmPm(onAM: (Int) -> Unit, onPM : (Int) -> Unit) {
         if(isAM(this)) {
             onAM(this)

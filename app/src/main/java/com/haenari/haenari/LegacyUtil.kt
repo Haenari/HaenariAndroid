@@ -26,4 +26,16 @@ object LegacyUtil {
         else if (hour >= 24) throw IllegalArgumentException("Hour cannot be bigger than 24.")
         else return hour
     }
+
+    fun Float.isNotValid(): Boolean {
+        return this == Float.MAX_VALUE || this == Float.MIN_VALUE
+    }
+
+    fun Int.isNotValid(): Boolean {
+        return this == Int.MAX_VALUE || this == Int.MIN_VALUE
+    }
+
+    fun String.isNotValid(): Boolean {
+        return this.isEmpty()
+    }
 }

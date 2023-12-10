@@ -2,7 +2,11 @@ package com.haenari.haenari.data.model.weather
 
 data class MidTermLandEntity(
     var response: MidTermLandResponse? = MidTermLandResponse()
-)
+) {
+    fun getItem(): MidTermLandItem? {
+        return response?.body?.items?.item?.getOrNull(0)
+    }
+}
 
 data class MidTermLandResponse(
     var header: MidTermLandHeader? = MidTermLandHeader(),

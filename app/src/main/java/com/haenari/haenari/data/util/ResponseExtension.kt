@@ -2,7 +2,7 @@ package com.haenari.haenari.data.util
 
 import retrofit2.Response
 
-fun <T> Response<T>.checkIsSuccess(onSuccess: (T) -> Unit): Boolean {
+suspend fun <T, R> Response<T>.checkIsSuccess(onSuccess: suspend (T) -> R): Boolean {
     try {
         return if (this.isSuccessful) {
             this.body()?.let { entity ->

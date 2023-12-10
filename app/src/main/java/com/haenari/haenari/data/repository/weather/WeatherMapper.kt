@@ -35,10 +35,8 @@ object WeatherMapper {
             var probabilityOfPrecipitationAM = Int.MIN_VALUE
             var probabilityOfPrecipitationPM = Int.MIN_VALUE
 
-            dateMap.second.map { timeMap ->
-                val time = timeMap.key
-                val hour = checkNotNull(time).toInt() / 100
-                val list = timeMap.value
+            dateMap.second.map { (time, list) ->
+                val hour = checkNotNull(time).toInt().div(100)
 
                 var temperature = Float.MAX_VALUE
                 var skyStatus = Int.MAX_VALUE
@@ -110,6 +108,7 @@ object WeatherMapper {
                         }
                     }
                 }
+
                 mutableList[hour] = Weather(
                     temperature = temperature,
                     skyStatus = skyStatus,

@@ -27,15 +27,23 @@ object LegacyUtil {
         else return hour
     }
 
-    fun Float.isNotValid(): Boolean {
+    fun Float.isValid(): Boolean {
+        return this != Float.MAX_VALUE && this != Float.MIN_VALUE
+    }
+
+    fun Float.isInvalid(): Boolean {
         return this == Float.MAX_VALUE || this == Float.MIN_VALUE
     }
 
-    fun Int.isNotValid(): Boolean {
+    fun Int.isValid(): Boolean {
+        return this != Int.MAX_VALUE && this != Int.MIN_VALUE
+    }
+
+    fun Int.isInvalid(): Boolean {
         return this == Int.MAX_VALUE || this == Int.MIN_VALUE
     }
 
-    fun String.isNotValid(): Boolean {
+    fun String.isInvalid(): Boolean {
         return this.isEmpty()
     }
 }

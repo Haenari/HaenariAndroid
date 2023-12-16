@@ -6,6 +6,8 @@ import com.haenari.haenari.data.entity.WeatherEntity
 import com.haenari.haenari.data.model.weather.MidTermLandItem
 import com.haenari.haenari.data.model.weather.MidTermTemperatureItem
 import com.haenari.haenari.data.model.weather.ShortTermItem
+import com.haenari.haenari.presentation.util.DateTimes.date
+import org.joda.time.DateTime
 import java.lang.Integer.max
 
 object WeatherMapper {
@@ -134,24 +136,30 @@ object WeatherMapper {
     }
 
     fun MidTermLandItem.toWeatherEntity(): List<WeatherEntity> {
+        val date = DateTime.now()
         return listOf(
             WeatherEntity(
+                date = date.plusDays(3).date(),
                 precipitationTypeAM = rnSt3Am ?: Int.MAX_VALUE,
                 precipitationTypePM = rnSt3Pm ?: Int.MAX_VALUE
             ),
             WeatherEntity(
+                date = date.plusDays(4).date(),
                 precipitationTypeAM = rnSt4Am ?: Int.MAX_VALUE,
                 precipitationTypePM = rnSt4Pm ?: Int.MAX_VALUE
             ),
             WeatherEntity(
+                date = date.plusDays(5).date(),
                 precipitationTypeAM = rnSt5Am ?: Int.MAX_VALUE,
                 precipitationTypePM = rnSt5Pm ?: Int.MAX_VALUE
             ),
             WeatherEntity(
+                date = date.plusDays(6).date(),
                 precipitationTypeAM = rnSt6Am ?: Int.MAX_VALUE,
                 precipitationTypePM = rnSt6Pm ?: Int.MAX_VALUE
             ),
             WeatherEntity(
+                date = date.plusDays(7).date(),
                 precipitationTypeAM = rnSt7Am ?: Int.MAX_VALUE,
                 precipitationTypePM = rnSt7Pm ?: Int.MAX_VALUE
             ),
@@ -159,24 +167,30 @@ object WeatherMapper {
     }
 
     fun MidTermTemperatureItem.toWeatherEntity(): List<WeatherEntity> {
+        val date = DateTime.now()
         return listOf(
             WeatherEntity(
+                date = date.plusDays(3).date(),
                 minTemperature = taMin3 ?: Float.MAX_VALUE,
                 maxTemperature = taMax3 ?: Float.MAX_VALUE
             ),
             WeatherEntity(
+                date = date.plusDays(4).date(),
                 minTemperature = taMin4 ?: Float.MAX_VALUE,
                 maxTemperature = taMax4 ?: Float.MAX_VALUE
             ),
             WeatherEntity(
+                date = date.plusDays(5).date(),
                 minTemperature = taMin5 ?: Float.MAX_VALUE,
                 maxTemperature = taMax5 ?: Float.MAX_VALUE
             ),
             WeatherEntity(
+                date = date.plusDays(6).date(),
                 minTemperature = taMin6 ?: Float.MAX_VALUE,
                 maxTemperature = taMax6 ?: Float.MAX_VALUE
             ),
             WeatherEntity(
+                date = date.plusDays(7).date(),
                 minTemperature = taMin7 ?: Float.MAX_VALUE,
                 maxTemperature = taMax7 ?: Float.MAX_VALUE
             ),

@@ -5,6 +5,7 @@ import com.haenari.haenari.data.repository.weather.source.WeatherLocalDataSource
 import com.haenari.haenari.data.repository.weather.source.WeatherRemoteDataSource
 import com.haenari.haenari.data.util.checkIsSuccess
 import com.haenari.haenari.domain.repository.weather.WeatherRepository
+import org.joda.time.DateTime
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -19,21 +20,29 @@ class WeatherRepositoryImpl @Inject constructor(
     override suspend fun syncShortTerm(date: String, time: String, nx: Int, ny: Int): Boolean {
         val response = remoteDataSource.getShortTerm(date, time, nx, ny)
         return response.checkIsSuccess { entity ->
-            localDataSource.updateShortTerm(entity.getItems())
+            localDataSource.updateShortTerm(entity.getItems()).also { result ->
+                if (result) {
+                    localDataSource.updateShortTermCachingTime(DateTime.now().millis)
+                }
+            }
         }
     }
 
     override suspend fun syncMidTermLand(regId: String, tmFc: String): Boolean {
         val response = remoteDataSource.getMidTermLand(regId, tmFc)
         return response.checkIsSuccess { entity ->
-            localDataSource.updateMidTermLand(entity)
+            entity.getItem()?.let {
+                localDataSource.updateMidTermLand(it)
+            } ?: false
         }
     }
 
     override suspend fun syncMidTermTemperature(regId: String, tmFc: String): Boolean {
         val response = remoteDataSource.getMidTermTemperature(regId, tmFc)
         return response.checkIsSuccess { entity ->
-            localDataSource.updateMidTermTemperature(entity)
+            entity.getItem()?.let {
+                localDataSource.updateMidTermTemperature(it)
+            } ?: false
         }
     }
 

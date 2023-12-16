@@ -7,10 +7,11 @@ import com.haenari.haenari.Weather.WeatherData
 import com.haenari.haenari.data.dao.WeatherDao
 import com.haenari.haenari.data.datastore.PreferencesKey
 import com.haenari.haenari.data.entity.WeatherEntity
-import com.haenari.haenari.data.model.weather.MidTermLandEntity
-import com.haenari.haenari.data.model.weather.MidTermTemperatureEntity
+import com.haenari.haenari.data.model.weather.MidTermLandItem
+import com.haenari.haenari.data.model.weather.MidTermTemperatureItem
 import com.haenari.haenari.data.model.weather.ShortTermItem
 import com.haenari.haenari.data.repository.weather.WeatherMapper.toWeatherEntity
+import org.joda.time.DateTime
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -39,18 +40,35 @@ class WeatherLocalDataSource @Inject constructor(
         }
     }
 
-    fun updateShortTerm(items: List<ShortTermItem>) {
+    suspend fun updateShortTerm(items: List<ShortTermItem>): Boolean {
         val result = items.toWeatherEntity()
-
-        dao.insertWeatherList(result)
+        return dao.insertWeatherList(result).any { it >= 0 }
     }
 
-    fun updateMidTermLand(entity: MidTermLandEntity) {
-
+    suspend fun updateMidTermLand(
+        item: MidTermLandItem,
+        startDate: String = DateTime.now().plusDays(3).toString("yyyyMMdd"),
+        endDate: String = DateTime.now().plusDays(7).toString("yyyyMMdd")
+    ): Boolean {
+        val result = item.toWeatherEntity()
+        return dao.insertOrUpdateWeatherList(
+            entities = result,
+            startDate = startDate,
+            endDate = endDate
+        ).any { it >= 0 }
     }
 
-    fun updateMidTermTemperature(entity: MidTermTemperatureEntity) {
-
+    suspend fun updateMidTermTemperature(
+        item: MidTermTemperatureItem,
+        startDate: String = DateTime.now().plusDays(3).toString("yyyyMMdd"),
+        endDate: String = DateTime.now().plusDays(7).toString("yyyyMMdd")
+    ): Boolean {
+        val result = item.toWeatherEntity()
+        return dao.insertOrUpdateWeatherList(
+            entities = result,
+            startDate = startDate,
+            endDate = endDate
+        ).any { it >= 0 }
     }
 
     fun readAllWeather(): List<WeatherEntity> {

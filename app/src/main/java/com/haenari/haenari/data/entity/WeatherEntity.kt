@@ -21,6 +21,28 @@ data class WeatherEntity(
     @ColumnInfo val skyStatusPM: Int = Int.MAX_VALUE,
     @ColumnInfo val value: List<Weather> = emptyList(),
 )
+fun List<WeatherEntity>.containsDate(date: String): Boolean {
+    return this.any { it.date == date }
+}
+
+fun List<WeatherEntity>.getValue(date: String): WeatherEntity {
+    return this.filter { it.date == date }[0]
+}
+
+fun WeatherEntity.toText(): String {
+    return StringBuilder().apply {
+        append("result\n")
+        append("date::$date\n")
+        append("minTemperature::$minTemperature\n")
+        append("maxTemperature::$maxTemperature\n")
+        append("precipitationTypeAM::$precipitationTypeAM\n")
+        append("precipitationTypePM::$precipitationTypePM\n")
+        append("probabilityOfPrecipitationAM::$probabilityOfPrecipitationAM\n")
+        append("probabilityOfPrecipitationPM::$probabilityOfPrecipitationPM\n")
+        append("skyStatusAM::$skyStatusAM\n")
+        append("skyStatusPM::$skyStatusPM\n")
+    }.toString()
+}
 
 data class Weather(
     val temperature: Float,

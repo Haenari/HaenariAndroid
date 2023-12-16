@@ -9,12 +9,12 @@ class WeatherTypeConverter {
     private val gson = Gson()
 
     @TypeConverter
-    fun stringToInt(text: String): Int {
-        return text.toInt()
+    fun stringToLong(text: String): Long {
+        return text.toLong()
     }
 
     @TypeConverter
-    fun intToString(num: Int): String {
+    fun longToString(num: Long): String {
         return num.toString()
     }
 

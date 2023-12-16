@@ -5,5 +5,8 @@ import javax.inject.Inject
 
 class SyncMidTermTemperatureUseCase @Inject constructor(
     private val weatherRepository: WeatherRepository
-) {
+): suspend (String, String) -> Boolean {
+    override suspend fun invoke(regId: String, tmFc: String): Boolean {
+        return weatherRepository.syncMidTermTemperature(regId = regId, tmFc = tmFc)
+    }
 }

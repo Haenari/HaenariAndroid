@@ -12,3 +12,5 @@ fun getMidTermTemperatureCoordinate(address: String): String {
         address.contains(it.region)
     }.code
 }
+
+class NotNormalServiceException(override val message: String?): Exception()

@@ -9,6 +9,10 @@ interface WeatherRepository {
 
     suspend fun syncMidTermTemperature(regId: String, tmFc: String): Boolean
 
+    suspend fun getDailyWeather(date: String): WeatherEntity
+
+    suspend fun getWeeklyWeather(startDate: String, endDate: String): List<WeatherEntity>
+
     // todo for test
     fun readAllWeather(): List<WeatherEntity>
 

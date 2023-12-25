@@ -10,11 +10,11 @@ object LegacyUtil {
 
 
     fun Long.checkCaching(): Boolean {
-        return DateTime(this).isAfter(DateTime.now().plusMinutes(30))
+        return DateTime(this).isAfter(DateTime.now().plusMinutes(AppConstants.CACHING_TIME))
     }
 
     fun DateTime.checkCaching(): Boolean {
-        return isAfter(DateTime.now().plusMinutes(30))
+        return isAfter(DateTime.now().plusMinutes(AppConstants.CACHING_TIME))
     }
 
     fun Int.handleAmPm(onAM: (Int) -> Unit, onPM: (Int) -> Unit) {

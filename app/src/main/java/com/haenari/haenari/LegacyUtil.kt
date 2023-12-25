@@ -1,12 +1,24 @@
 package com.haenari.haenari
 
+import org.joda.time.DateTime
+
 @Deprecated("Need to refactor later...")
 object LegacyUtil {
 
     // todo fix throwable...
     // 대응할 수 있는 대응점이 없음(지금은)
-    fun Int.handleAmPm(onAM: (Int) -> Unit, onPM : (Int) -> Unit) {
-        if(isAM(this)) {
+
+
+    fun Long.checkCaching(): Boolean {
+        return DateTime(this).isAfter(DateTime.now().plusMinutes(30))
+    }
+
+    fun DateTime.checkCaching(): Boolean {
+        return isAfter(DateTime.now().plusMinutes(30))
+    }
+
+    fun Int.handleAmPm(onAM: (Int) -> Unit, onPM: (Int) -> Unit) {
+        if (isAM(this)) {
             onAM(this)
         } else {
             onPM(this)

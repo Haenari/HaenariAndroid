@@ -3,8 +3,14 @@ package com.haenari.haenari.data.model.weather
 data class MidTermLandEntity(
     var response: MidTermLandResponse? = MidTermLandResponse()
 ) {
-    fun getItem(): MidTermLandItem? {
-        return response?.body?.items?.item?.getOrNull(0)
+    fun getItem(): MidTermLandItem {
+        return response?.body?.items?.item?.run {
+            if (isNullOrEmpty()) {
+                MidTermLandItem()
+            } else {
+                get(0)
+            }
+        } ?: MidTermLandItem()
     }
 }
 

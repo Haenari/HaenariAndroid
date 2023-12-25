@@ -1,6 +1,6 @@
 package com.haenari.haenari.presentation.util
 
-import android.graphics.Point
+import android.location.Address
 import kotlin.math.cos
 import kotlin.math.ln
 import kotlin.math.pow
@@ -8,8 +8,10 @@ import kotlin.math.sin
 import kotlin.math.tan
 
 object Locations {
+    const val DEFAULT_LATITUDE = 37.3957122
+    const val DEFAULT_LONGITUDE = 127.1105181
 
-    fun toCoordinates(lat: Double, lng: Double): Point {
+    fun toCoordinates(lat: Double, lng: Double): Pair<Int, Int> {
         val RE = 6371.00877     // 지구 반경(km)
         val GRID = 5.0          // 격자 간격(km)
         val SLAT1 = 30.0        // 투영 위도1(degree)
@@ -42,6 +44,11 @@ object Locations {
         val x = (ra * sin(theta) + XO + 0.5).toInt()
         val y = (ro - ra * cos(theta) + YO + 0.5).toInt()
 
-        return Point(x, y)
+        return (x to y)
+    }
+
+    fun getAddress(address: Address): String {
+        val splitString = address.getAddressLine(0).split(" ")
+        return "${splitString[1]} ${splitString[2]}"
     }
 }

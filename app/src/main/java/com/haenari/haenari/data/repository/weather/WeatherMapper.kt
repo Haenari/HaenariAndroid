@@ -227,12 +227,14 @@ object WeatherMapper {
         return newValue
     }
 
+    // todo make const
     private fun getSkyStatus(weather: String): Int {
         return if (weather.contains("구름")) 3
         else if (weather.contains("흐림") || weather.contains("흐리고")) 4
         else 1
     }
 
+    // todo make const
     private fun getPrecipitationType(weather: String): Int {
         return if (weather.contains("비/눈")) 2
         else if (weather.contains("비")) 1

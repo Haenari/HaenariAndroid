@@ -35,11 +35,13 @@ object Dependencies {
 
         private const val hiltVersion = "2.48.1"
         private const val materialVersion = "1.9.0"
+        private const val playServicesLocationVersion = "21.0.1"
         private const val protobufVersion = "3.23.0"
 
         const val HILT = "${default}.dagger:hilt-android:${hiltVersion}"
         const val HILT_COMPILER = "${default}.dagger:hilt-compiler:${hiltVersion}"
         const val MATERIAL = "${default}.android.material:material:${materialVersion}"
+        const val PLAY_SERVICES_LOCATION = "${default}.android.gms:play-services-location:${playServicesLocationVersion}"
         const val PROTOBUF_JAVA = "${default}.protobuf:protobuf-javalite:${protobufVersion}"
         const val PROTOBUF_KOTLIN = "${default}.protobuf:protobuf-kotlin-lite:${protobufVersion}"
     }
@@ -81,8 +83,12 @@ object Dependencies {
     }
 
     object ThirdParty {
+        private const val glideVersion = "4.16.0"
         private const val jodaTimeVersion = "2.10.6"
+        private const val tedVersion = "3.3.0"
 
+        const val GLIDE = "com.github.bumptech.glide:glide:${glideVersion}"
         const val JODA_TIME = "joda-time:joda-time:${jodaTimeVersion}"
+        const val TED_PERMISSION = "io.github.ParkSangGwon:tedpermission-normal:${tedVersion}"
     }
 }

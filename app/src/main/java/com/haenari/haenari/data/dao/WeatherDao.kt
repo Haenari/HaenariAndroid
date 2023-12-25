@@ -78,7 +78,7 @@ interface WeatherDao {
                     }
 
                     if (skyStatusPM.isInvalid()) {
-                        if (skyStatusPM.isValid()) {
+                        if (entity.skyStatusPM.isValid()) {
                             result = result.copy(skyStatusPM = entity.skyStatusPM)
                         }
                     }

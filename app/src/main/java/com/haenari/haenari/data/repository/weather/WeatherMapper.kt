@@ -140,28 +140,48 @@ object WeatherMapper {
         return listOf(
             WeatherEntity(
                 date = date.plusDays(3).date(),
-                precipitationTypeAM = rnSt3Am ?: Int.MAX_VALUE,
-                precipitationTypePM = rnSt3Pm ?: Int.MAX_VALUE
+                probabilityOfPrecipitationAM = rnSt3Am ?: Int.MAX_VALUE,
+                probabilityOfPrecipitationPM = rnSt3Pm ?: Int.MAX_VALUE,
+                skyStatusAM = getSkyStatus(wf3Am ?: ""),
+                skyStatusPM = getSkyStatus(wf3Pm ?: ""),
+                precipitationTypeAM = getPrecipitationType(wf3Am ?: ""),
+                precipitationTypePM = getPrecipitationType(wf3Pm ?: "")
             ),
             WeatherEntity(
                 date = date.plusDays(4).date(),
-                precipitationTypeAM = rnSt4Am ?: Int.MAX_VALUE,
-                precipitationTypePM = rnSt4Pm ?: Int.MAX_VALUE
+                probabilityOfPrecipitationAM = rnSt4Am ?: Int.MAX_VALUE,
+                probabilityOfPrecipitationPM = rnSt4Pm ?: Int.MAX_VALUE,
+                skyStatusAM = getSkyStatus(wf4Am ?: ""),
+                skyStatusPM = getSkyStatus(wf4Pm ?: ""),
+                precipitationTypeAM = getPrecipitationType(wf4Am ?: ""),
+                precipitationTypePM = getPrecipitationType(wf4Pm ?: "")
             ),
             WeatherEntity(
                 date = date.plusDays(5).date(),
-                precipitationTypeAM = rnSt5Am ?: Int.MAX_VALUE,
-                precipitationTypePM = rnSt5Pm ?: Int.MAX_VALUE
+                probabilityOfPrecipitationAM = rnSt5Am ?: Int.MAX_VALUE,
+                probabilityOfPrecipitationPM = rnSt5Pm ?: Int.MAX_VALUE,
+                skyStatusAM = getSkyStatus(wf5Am ?: ""),
+                skyStatusPM = getSkyStatus(wf5Pm ?: ""),
+                precipitationTypeAM = getPrecipitationType(wf5Am ?: ""),
+                precipitationTypePM = getPrecipitationType(wf5Pm ?: "")
             ),
             WeatherEntity(
                 date = date.plusDays(6).date(),
-                precipitationTypeAM = rnSt6Am ?: Int.MAX_VALUE,
-                precipitationTypePM = rnSt6Pm ?: Int.MAX_VALUE
+                probabilityOfPrecipitationAM = rnSt6Am ?: Int.MAX_VALUE,
+                probabilityOfPrecipitationPM = rnSt6Pm ?: Int.MAX_VALUE,
+                skyStatusAM = getSkyStatus(wf6Am ?: ""),
+                skyStatusPM = getSkyStatus(wf6Pm ?: ""),
+                precipitationTypeAM = getPrecipitationType(wf6Am ?: ""),
+                precipitationTypePM = getPrecipitationType(wf6Pm ?: "")
             ),
             WeatherEntity(
                 date = date.plusDays(7).date(),
-                precipitationTypeAM = rnSt7Am ?: Int.MAX_VALUE,
-                precipitationTypePM = rnSt7Pm ?: Int.MAX_VALUE
+                probabilityOfPrecipitationAM = rnSt7Am ?: Int.MAX_VALUE,
+                probabilityOfPrecipitationPM = rnSt7Pm ?: Int.MAX_VALUE,
+                skyStatusAM = getSkyStatus(wf7Am ?: ""),
+                skyStatusPM = getSkyStatus(wf7Pm ?: ""),
+                precipitationTypeAM = getPrecipitationType(wf7Am ?: ""),
+                precipitationTypePM = getPrecipitationType(wf7Pm ?: "")
             ),
         )
     }
@@ -205,5 +225,19 @@ object WeatherMapper {
     private fun checkSkyStatusPriority(oldValue: Int, newValue: Int): Int {
         // todo check priority
         return newValue
+    }
+
+    private fun getSkyStatus(weather: String): Int {
+        return if (weather.contains("구름")) 3
+        else if (weather.contains("흐림") || weather.contains("흐리고")) 4
+        else 1
+    }
+
+    private fun getPrecipitationType(weather: String): Int {
+        return if (weather.contains("비/눈")) 2
+        else if (weather.contains("비")) 1
+        else if (weather.contains("눈")) 3
+        else if (weather.contains("소나기")) 4
+        else 0
     }
 }

@@ -14,5 +14,19 @@
     <string name="tab_title_weather">이번주 날씨는?</string>
     <string name="tab_title_wearing">의상</string>
 
+    <string name="weather_today">오늘의 날씨%s</string>
+    <string name="weather_is_none"> </string>
+    <string name="weather_is_sunny">는 맑음!</string>
+    <string name="weather_is_rainy">는 비!</string>
+    <string name="weather_is_rainy_snowy">는 비/눈!</string>
+    <string name="weather_is_snowy">는 눈!</string>
+    <string name="weather_is_shower">는 소나기!</string>
+    <string name="weather_none"> </string>
+    <string name="weather_sunny">맑음</string>
+    <string name="weather_rainy">비</string>
+    <string name="weather_rainy_snowy">비/눈</string>
+    <string name="weather_snowy">눈</string>
+    <string name="weather_shower">소나기</string>
+
     <string name="updated">\u0020%s업데이트됨</string>
 </resources>

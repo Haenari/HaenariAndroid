@@ -4,24 +4,24 @@
     <item
         android:id="@+id/btnHome"
         android:enabled="true"
-        android:icon="@drawable/ic_launcher_foreground"
+        android:icon="@drawable/temp_ic_home"
         android:title="@string/home" />
 
     <item
         android:id="@+id/btnWeather"
         android:enabled="true"
-        android:icon="@drawable/ic_launcher_foreground"
+        android:icon="@drawable/temp_ic_weather"
         android:title="@string/weather" />
 
     <item
         android:id="@+id/btnWearing"
         android:enabled="true"
-        android:icon="@drawable/ic_launcher_foreground"
+        android:icon="@drawable/temp_ic_wear"
         android:title="@string/wearing" />
 
     <item
         android:id="@+id/btnSettings"
         android:enabled="true"
-        android:icon="@drawable/ic_launcher_foreground"
+        android:icon="@drawable/temp_ic_settings"
         android:title="@string/settings" />
 </menu>

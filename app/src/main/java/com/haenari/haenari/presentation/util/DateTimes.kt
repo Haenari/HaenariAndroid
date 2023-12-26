@@ -16,4 +16,9 @@ object DateTimes {
             DateTime.now().withTimeAtStartOfDay().minusHours(6).toString("yyyyMMddHHmm")
         }
     }
+
+    fun getDayOfWeekKrStr(dayOfWeek: Int): String {
+        val list = listOf(" ", "월", "화", "수", "목", "금", "토", "일")
+        return "${list[dayOfWeek]}요일"
+    }
 }

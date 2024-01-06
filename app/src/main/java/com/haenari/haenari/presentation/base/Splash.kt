@@ -1,4 +1,4 @@
-package com.haenari.haenari.presentation.base.activity
+package com.haenari.haenari.presentation.base
 
 interface Splash {
     fun initSplash(nextProcess: (() -> Unit)?)

@@ -6,4 +6,11 @@
     </style>
 
     <style name="Theme.Haenari" parent="Base.Theme.Haenari" />
+
+    <style name="Theme.Haenari.SplashScreen" parent="Theme.SplashScreen" >
+        <item name="windowSplashScreenBackground">@color/white</item>
+        <item name="windowSplashScreenAnimatedIcon">@mipmap/ic_launcher</item>
+        <item name="windowSplashScreenAnimationDuration">1000</item>
+        <item name="postSplashScreenTheme">@style/Theme.Haenari</item>
+    </style>
 </resources>

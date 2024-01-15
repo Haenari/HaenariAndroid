@@ -1,9 +1,17 @@
 package com.haenari.haenari.presentation.views.main
 
+import android.animation.ObjectAnimator
+import android.animation.PropertyValuesHolder
 import android.annotation.SuppressLint
 import android.location.Geocoder
+import android.os.Bundle
 import android.os.Looper
+import android.view.View
+import android.view.ViewTreeObserver
+import android.view.animation.AnticipateInterpolator
 import androidx.activity.viewModels
+import androidx.core.animation.doOnEnd
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationCallback
 import com.google.android.gms.location.LocationRequest
@@ -13,6 +21,7 @@ import com.google.android.gms.location.Priority
 import com.haenari.haenari.AppConstants
 import com.haenari.haenari.R
 import com.haenari.haenari.databinding.ActivityMainBinding
+import com.haenari.haenari.presentation.base.Splash
 import com.haenari.haenari.presentation.base.activity.MVIActivity
 import com.haenari.haenari.presentation.util.Locations
 import com.haenari.haenari.presentation.util.Permissions
@@ -23,7 +32,7 @@ import java.util.concurrent.TimeUnit
 
 @AndroidEntryPoint
 class MainActivity :
-    MVIActivity<ActivityMainBinding, MainEvent, MainState>(R.layout.activity_main) {
+    MVIActivity<ActivityMainBinding, MainEvent, MainState>(R.layout.activity_main), Splash {
     override val viewModel: MainViewModel by viewModels()
     private val homeViewModel: HomeViewModel by viewModels()
     private val weatherViewModel: WeatherViewModel by viewModels()
@@ -34,6 +43,50 @@ class MainActivity :
     private val locationRequest =
         LocationRequest.Builder(Priority.PRIORITY_HIGH_ACCURACY, TimeUnit.HOURS.toMillis(1)).build()
     private lateinit var locationCallback: LocationCallback
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        initSplash {
+            // todo sync data
+        }
+        super.onCreate(savedInstanceState)
+    }
+
+    override fun initSplash(nextProcess: (() -> Unit)?) {
+        startSplashScreen()
+        setOnSplashScreen(nextProcess)
+    }
+
+    override fun startSplashScreen() {
+        val splashScreen = installSplashScreen()
+
+        // todo set animation
+        splashScreen.setOnExitAnimationListener { splashScreenView ->
+            val scaleX = PropertyValuesHolder.ofFloat(View.SCALE_X, 1f, 5f)
+            val scaleY = PropertyValuesHolder.ofFloat(View.SCALE_Y, 1f, 5f)
+
+            ObjectAnimator.ofPropertyValuesHolder(splashScreenView.iconView, scaleX, scaleY).run {
+                interpolator = AnticipateInterpolator()
+                duration = 2000L
+                doOnEnd {
+                    splashScreenView.remove()
+                }
+                start()
+            }
+        }
+    }
+
+    override fun setOnSplashScreen(nextProcess: (() -> Unit)?) {
+        val content: View = findViewById(android.R.id.content)
+        content.viewTreeObserver.addOnPreDrawListener(
+            object : ViewTreeObserver.OnPreDrawListener {
+                override fun onPreDraw(): Boolean {
+                    nextProcess?.invoke()
+                    content.viewTreeObserver.removeOnPreDrawListener(this)
+                    return true
+                }
+            }
+        )
+    }
 
     override fun render(state: MainState) {
         when {

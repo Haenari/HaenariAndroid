@@ -31,7 +31,16 @@ class HomeFragment :
                 }\n${dailyWeather.minTemperature}°C ~ ${dailyWeather.maxTemperature}°C"
 
                 context?.let {
-                    Glide.with(it).load(Weathers.getImage(dailyWeather.precipitationTypeAM)).into(ivWeather)
+                    // todo replace currentWeather
+                    if(dailyWeather.value.isNotEmpty()) {
+                        val currentWeather = dailyWeather.value.first { weatherForHour ->
+                            weatherForHour.precipitationType != Int.MAX_VALUE
+                        }.precipitationType
+
+                        Glide.with(it).load(Weathers.getImage(currentWeather)).into(ivWeather)
+                    } else {
+                        Glide.with(it).load(Weathers.getImage(dailyWeather.precipitationTypeAM)).into(ivWeather)
+                    }
                 }
             }
         }

@@ -7,11 +7,10 @@ import com.haenari.haenari.domain.usecase.weather.ReadDailyWeatherUseCase
 import com.haenari.haenari.presentation.base.viewmodel.BaseViewModel
 import com.haenari.haenari.presentation.util.DateTimes.date
 import com.haenari.haenari.presentation.util.Locations
-import com.haenari.haenari.presentation.util.Logs
-import com.haenari.haenari.presentation.views.weather.WeatherEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.launch
 import org.joda.time.DateTime
 import javax.inject.Inject
@@ -54,8 +53,14 @@ class HomeViewModel @Inject constructor(
 
     private fun requestDailyWeather() {
         viewModelScope.launch(Dispatchers.IO) {
-            val result = readDailyWeatherUseCase.invoke(DateTime.now().date())
-            onEvent(HomeEvent.ReceivedWeather(result))
+            readDailyWeatherUseCase.invoke(DateTime.now().date())
+                .catch {
+
+                }.collect { result ->
+                    result?.let {
+                        onEvent(HomeEvent.ReceivedWeather(result))
+                    }
+                }
         }
     }
 }

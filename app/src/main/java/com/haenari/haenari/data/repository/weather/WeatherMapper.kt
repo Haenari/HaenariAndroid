@@ -119,6 +119,16 @@ object WeatherMapper {
                     probabilityOfPrecipitation = probabilityOfPrecipitation,
                     precipitationType = precipitationType
                 )
+                this
+            }.map {
+                val temperatureList = it.filter { shortTermItem ->
+                    shortTermItem.category == TEMPERATURE
+                }.map { shortTermItem ->
+                    shortTermItem.fcstValue?.toFloat() ?: Float.MAX_VALUE
+                }
+
+                if (minTemperature == Float.MAX_VALUE) minTemperature = temperatureList.min()
+                if (maxTemperature == Float.MAX_VALUE) maxTemperature = temperatureList.max()
             }
             WeatherEntity(
                 date = date,

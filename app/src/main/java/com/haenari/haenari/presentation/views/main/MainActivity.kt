@@ -96,9 +96,10 @@ class MainActivity :
                         val address = getGeocodedAddress(latLng)
                         val coordinate = Locations.toCoordinates(latLng.first, latLng.second)
 
-                        viewModel.requestWeather(coordinate, address)
-                        homeViewModel.receivedLocation(latLng = latLng, address = address)
-                        weatherViewModel.receivedLocation(latLng = latLng, address = address)
+                        viewModel.requestWeather(coordinate, address) {
+                            homeViewModel.receivedLocation(latLng = latLng, address = address)
+                            weatherViewModel.receivedLocation(latLng = latLng, address = address)
+                        }
                     }
                 }
 

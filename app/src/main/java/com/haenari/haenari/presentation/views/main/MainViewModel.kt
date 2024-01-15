@@ -1,6 +1,7 @@
 package com.haenari.haenari.presentation.views.main
 
 import androidx.lifecycle.viewModelScope
+import com.haenari.haenari.Flows
 import com.haenari.haenari.NotNormalServiceException
 import com.haenari.haenari.domain.usecase.weather.ReadWeatherUseCase
 import com.haenari.haenari.domain.usecase.weather.SyncMidTermLandUseCase
@@ -15,7 +16,10 @@ import com.haenari.haenari.presentation.util.DateTimes.time
 import com.haenari.haenari.presentation.util.Logs
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.launch
 import org.joda.time.DateTime
 import javax.inject.Inject
@@ -28,10 +32,12 @@ class MainViewModel @Inject constructor(
     private val readWeatherUseCase: ReadWeatherUseCase
 ) : BaseViewModel<MainEvent, MainState>() {
     override var currentEvent: MainEvent = MainEvent.None
-    override val state: StateFlow<MainState> = initState(MainState(
-        isBtnClicked = false,
-        isReceivedLocation = false
-    ))
+    override val state: StateFlow<MainState> = initState(
+        MainState(
+            isBtnClicked = false,
+            isReceivedLocation = false
+        )
+    )
 
     override fun changeState(current: MainState, event: MainEvent): MainState {
         return when (event) {
@@ -59,12 +65,12 @@ class MainViewModel @Inject constructor(
 
     // todo need to remove
 
-    fun requestWeather(coordinate: Pair<Int, Int>, address: String) {
+    fun requestWeather(coordinate: Pair<Int, Int>, address: String, nextProcess: () -> Unit) {
         viewModelScope.launch(Dispatchers.IO) {
             val nx = coordinate.first
             val ny = coordinate.second
             val shortTerm = getShortTerm(DateTime.now(), nx, ny, 0)
-                //syncShortTermUseCase.invoke(DateTime.now().date(), DateTime.now().time(), nx, ny)
+            //syncShortTermUseCase.invoke(DateTime.now().date(), DateTime.now().time(), nx, ny)
             val midTermLand = syncMidTermLandUseCase.invoke(
                 regId = getMidTermLandCoordinate(address),
                 tmFc = DateTimes.midTermWeatherTime()
@@ -74,25 +80,46 @@ class MainViewModel @Inject constructor(
                 tmFc = DateTimes.midTermWeatherTime()
             )
 
-            val result = readWeatherUseCase.invoke()
-//            Logs.e("shortTerm :: $shortTerm")
-//            Logs.e("midTermTemp :: $midTermTemp")
-//            Logs.e("midTermLand :: $midTermLand")
-//            result.map {
-//                Logs.e(it.toText())
-//            }
+            Logs.e("requestWeather()")
+            Flows.zip(shortTerm, midTermLand, midTermTemp) { short, midLand, midTemp ->
+                short && midLand && midTemp
+            }.catch {
+                val exception = it as Exception
+                Logs.e("catch::Exception::$exception")
+                // todo 202401 illegal state exception
+                // application error??
+                if (exception is NotNormalServiceException) {
+                    nextProcess.invoke()
+                }
+
+            }.collect {
+                Logs.e("collect::$it")
+                nextProcess.invoke()
+            }
         }
     }
 
-    private suspend fun getShortTerm(dateTime: DateTime, nx: Int, ny: Int, recallCount: Int): Boolean {
+    private suspend fun getShortTerm(dateTime: DateTime, nx: Int, ny: Int, recallCount: Int): Flow<Boolean> {
+        return flow {
+            emit(recursion(dateTime, nx, ny, 0))
+        }
+    }
+
+    private suspend fun recursion(
+        dateTime: DateTime,
+        nx: Int,
+        ny: Int,
+        recallCount: Int
+    ): Boolean {
         val date = dateTime.minusHours(recallCount).date()
         val time = dateTime.minusHours(recallCount).time()
-        return if(recallCount > 6) false
+
+        return if (recallCount > 6) false
         else {
             try {
                 syncShortTermUseCase(date, time, nx, ny)
             } catch (exception: NotNormalServiceException) {
-                getShortTerm(dateTime, nx, ny, recallCount.plus(1))
+                recursion(dateTime, nx, ny, recallCount.plus(1))
             }
         }
     }

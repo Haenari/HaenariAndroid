@@ -22,7 +22,6 @@ class HomeViewModel @Inject constructor(
     override var currentEvent: HomeEvent = HomeEvent.None
     override val state: StateFlow<HomeState> = initState(
         HomeState(
-            latLng = (Locations.DEFAULT_LATITUDE to Locations.DEFAULT_LONGITUDE),
             address = AppConstants.DEFAULT_ADDRESS,
             dailyWeather = WeatherEntity()
         )
@@ -35,7 +34,7 @@ class HomeViewModel @Inject constructor(
             }
 
             is HomeEvent.ReceivedLocation -> {
-                current.copy(latLng = event.latLng, address = event.address)
+                current.copy(address = event.address)
             }
 
             is HomeEvent.ReceivedWeather -> {
@@ -44,9 +43,9 @@ class HomeViewModel @Inject constructor(
         }
     }
 
-    fun receivedLocation(latLng: Pair<Double, Double>, address: String) {
+    fun receivedLocation(address: String) {
         viewModelScope.launch {
-            onEvent(HomeEvent.ReceivedLocation(latLng = latLng, address = address))
+            onEvent(HomeEvent.ReceivedLocation(address = address))
             requestDailyWeather()
         }
     }

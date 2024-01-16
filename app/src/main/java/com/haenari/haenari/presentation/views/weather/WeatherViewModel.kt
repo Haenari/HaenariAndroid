@@ -21,7 +21,6 @@ class WeatherViewModel @Inject constructor(
     override var currentEvent: WeatherEvent = WeatherEvent.None
     override val state: StateFlow<WeatherState> = initState(
         WeatherState(
-            latLng = (Locations.DEFAULT_LATITUDE to Locations.DEFAULT_LONGITUDE),
             address = AppConstants.DEFAULT_ADDRESS,
             weeklyWeather = emptyList()
         )
@@ -34,7 +33,7 @@ class WeatherViewModel @Inject constructor(
             }
 
             is WeatherEvent.ReceivedLocation -> {
-                current.copy(latLng = event.latLng, address = event.address)
+                current.copy(address = event.address)
             }
 
             is WeatherEvent.ReceivedWeather -> {
@@ -43,16 +42,19 @@ class WeatherViewModel @Inject constructor(
         }
     }
 
-    fun receivedLocation(latLng: Pair<Double, Double>, address: String) {
+    fun receivedLocation(address: String) {
         viewModelScope.launch {
-            onEvent(WeatherEvent.ReceivedLocation(latLng = latLng, address = address))
+            onEvent(WeatherEvent.ReceivedLocation(address = address))
             requestWeather()
         }
     }
 
     private fun requestWeather() {
         viewModelScope.launch(Dispatchers.IO) {
-            val result = readWeeklyWeatherUseCase.invoke(DateTime.now().plusDays(1).date(), DateTime.now().plusDays(7).date())
+            val result = readWeeklyWeatherUseCase.invoke(
+                DateTime.now().plusDays(1).date(),
+                DateTime.now().plusDays(7).date()
+            )
             onEvent(WeatherEvent.ReceivedWeather(result))
         }
     }

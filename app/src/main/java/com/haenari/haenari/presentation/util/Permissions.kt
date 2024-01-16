@@ -8,7 +8,7 @@ import com.gun0912.tedpermission.normal.TedPermission
 
 object Permissions {
 
-    private val LOCATION_PERMISSIONS = arrayOf(
+    val LOCATION_PERMISSIONS = arrayOf(
         Manifest.permission.ACCESS_COARSE_LOCATION
     )
 

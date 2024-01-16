@@ -18,14 +18,17 @@
         android:theme="@style/Theme.Haenari"
         android:usesCleartextTraffic="true">
         <activity
-            android:name=".presentation.views.main.MainActivity"
-            android:exported="true"
-            android:theme="@style/Theme.Haenari.SplashScreen">
+            android:name=".presentation.views.splash.SplashActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name=".presentation.views.main.MainActivity"
+            android:exported="true">
         </activity>
 
         <activity

@@ -6,7 +6,9 @@ import com.haenari.haenari.R
 import com.haenari.haenari.databinding.FragmentHomeBinding
 import com.haenari.haenari.presentation.base.fragment.MVIFragment
 import com.haenari.haenari.presentation.util.Logs
+import com.haenari.haenari.presentation.util.Permissions
 import com.haenari.haenari.presentation.util.Weathers
+import com.haenari.haenari.presentation.views.main.MainActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -32,14 +34,15 @@ class HomeFragment :
 
                 context?.let {
                     // todo replace currentWeather
-                    if(dailyWeather.value.isNotEmpty()) {
+                    if (dailyWeather.value.isNotEmpty()) {
                         val currentWeather = dailyWeather.value.first { weatherForHour ->
                             weatherForHour.precipitationType != Int.MAX_VALUE
                         }.precipitationType
 
                         Glide.with(it).load(Weathers.getImage(currentWeather)).into(ivWeather)
                     } else {
-                        Glide.with(it).load(Weathers.getImage(dailyWeather.precipitationTypeAM)).into(ivWeather)
+                        Glide.with(it).load(Weathers.getImage(dailyWeather.precipitationTypeAM))
+                            .into(ivWeather)
                     }
                 }
             }
@@ -47,6 +50,14 @@ class HomeFragment :
     }
 
     override fun initView() {
-
+        bind {
+            btnCurrentLocation.setOnClickListener {
+                Permissions.requestLocationPermission(
+                    onPermissionGranted = {
+                        (activity as MainActivity).requestLocation()
+                    },
+                    onPermissionDenied = {})
+            }
+        }
     }
 }

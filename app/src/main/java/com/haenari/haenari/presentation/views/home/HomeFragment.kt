@@ -10,6 +10,7 @@ import com.haenari.haenari.presentation.util.Permissions
 import com.haenari.haenari.presentation.util.Weathers
 import com.haenari.haenari.presentation.views.main.MainActivity
 import dagger.hilt.android.AndroidEntryPoint
+import org.joda.time.DateTime
 
 @AndroidEntryPoint
 class HomeFragment :
@@ -31,6 +32,10 @@ class HomeFragment :
                         dailyWeather.precipitationTypeAM
                     )
                 }\n${dailyWeather.minTemperature}°C ~ ${dailyWeather.maxTemperature}°C"
+
+                if(dailyWeather.value.isNotEmpty()) {
+                    tvCurrentTemperature.text = "${dailyWeather.value[DateTime.now().hourOfDay].temperature}°C"
+                }
 
                 context?.let {
                     // todo replace currentWeather

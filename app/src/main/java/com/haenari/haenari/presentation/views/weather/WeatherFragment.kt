@@ -5,6 +5,8 @@ import com.haenari.haenari.R
 import com.haenari.haenari.databinding.FragmentWeatherBinding
 import com.haenari.haenari.presentation.base.fragment.MVIFragment
 import com.haenari.haenari.presentation.util.Logs
+import com.haenari.haenari.presentation.util.Permissions
+import com.haenari.haenari.presentation.views.main.MainActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -34,6 +36,14 @@ class WeatherFragment :
     override fun initView() {
         bind {
             rvWeather.adapter = recyclerAdapter
+
+            btnCurrentLocation.setOnClickListener {
+                Permissions.requestLocationPermission(
+                    onPermissionGranted = {
+                        (activity as MainActivity).requestLocation()
+                    },
+                    onPermissionDenied = {})
+            }
         }
     }
 }

@@ -13,7 +13,6 @@ import com.haenari.haenari.presentation.base.viewmodel.BaseViewModel
 import com.haenari.haenari.presentation.util.DateTimes
 import com.haenari.haenari.presentation.util.DateTimes.date
 import com.haenari.haenari.presentation.util.DateTimes.time
-import com.haenari.haenari.presentation.util.Logs
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
@@ -35,7 +34,9 @@ class MainViewModel @Inject constructor(
     override val state: StateFlow<MainState> = initState(
         MainState(
             isBtnClicked = false,
-            isReceivedLocation = false
+            isReceivedLocation = false,
+            isLoading = false,
+            address = ""
         )
     )
 
@@ -52,6 +53,14 @@ class MainViewModel @Inject constructor(
             is MainEvent.ReceivedLocation -> {
                 current.copy()
             }
+
+            is MainEvent.SyncedWeather -> {
+                current.copy(isLoading = false, address = event.address)
+            }
+
+            is MainEvent.Loading -> {
+                current.copy(isLoading = true)
+            }
         }
     }
 
@@ -63,14 +72,18 @@ class MainViewModel @Inject constructor(
         }
     }
 
-    // todo need to remove
+    fun loading() {
+        viewModelScope.launch {
+            onEvent(MainEvent.Loading)
+        }
+    }
 
-    fun requestWeather(coordinate: Pair<Int, Int>, address: String, nextProcess: () -> Unit) {
+    fun requestWeather(coordinate: Pair<Int, Int>, address: String) {
         viewModelScope.launch(Dispatchers.IO) {
             val nx = coordinate.first
             val ny = coordinate.second
             val shortTerm = getShortTerm(DateTime.now(), nx, ny, 0)
-            //syncShortTermUseCase.invoke(DateTime.now().date(), DateTime.now().time(), nx, ny)
+
             val midTermLand = syncMidTermLandUseCase.invoke(
                 regId = getMidTermLandCoordinate(address),
                 tmFc = DateTimes.midTermWeatherTime()
@@ -80,21 +93,16 @@ class MainViewModel @Inject constructor(
                 tmFc = DateTimes.midTermWeatherTime()
             )
 
-            Logs.e("requestWeather()")
             Flows.zip(shortTerm, midTermLand, midTermTemp) { short, midLand, midTemp ->
                 short && midLand && midTemp
             }.catch {
                 val exception = it as Exception
-                Logs.e("catch::Exception::$exception")
-                // todo 202401 illegal state exception
-                // application error??
-                if (exception is NotNormalServiceException) {
-                    nextProcess.invoke()
-                }
 
+                if (exception is NotNormalServiceException) {
+                    onEvent(MainEvent.SyncedWeather(true, address))
+                }
             }.collect {
-                Logs.e("collect::$it")
-                nextProcess.invoke()
+                onEvent(MainEvent.SyncedWeather(true, address))
             }
         }
     }

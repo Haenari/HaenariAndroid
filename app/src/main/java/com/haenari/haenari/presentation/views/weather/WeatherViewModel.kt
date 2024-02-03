@@ -5,8 +5,6 @@ import com.haenari.haenari.AppConstants
 import com.haenari.haenari.domain.usecase.weather.ReadWeeklyWeatherUseCase
 import com.haenari.haenari.presentation.base.viewmodel.BaseViewModel
 import com.haenari.haenari.presentation.util.DateTimes.date
-import com.haenari.haenari.presentation.util.Locations
-import com.haenari.haenari.presentation.util.Logs
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.StateFlow
@@ -52,8 +50,8 @@ class WeatherViewModel @Inject constructor(
     private fun requestWeather() {
         viewModelScope.launch(Dispatchers.IO) {
             val result = readWeeklyWeatherUseCase.invoke(
-                DateTime.now().plusDays(1).date(),
-                DateTime.now().plusDays(7).date()
+                DateTime.now().plusDays(0).date(),
+                DateTime.now().plusDays(6).date()
             )
             onEvent(WeatherEvent.ReceivedWeather(result))
         }

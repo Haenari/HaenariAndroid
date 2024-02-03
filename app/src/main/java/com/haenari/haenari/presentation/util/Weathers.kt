@@ -53,11 +53,11 @@ object Weathers {
 
     fun getImage(skyStatus: Int): Int =
         when(skyStatus) {
-            SKY_STATUS_SUNNY -> R.drawable.temp_ic_sunny
-            SKY_STATUS_RAINY -> R.drawable.temp_ic_rain
+            SKY_STATUS_SUNNY -> R.drawable.ic_sunny
+            SKY_STATUS_RAINY -> R.drawable.ic_rainy
             SKY_STATUS_RAINY_SNOWY -> R.drawable.temp_ic_sleet
-            SKY_STATUS_SNOWY -> R.drawable.temp_ic_snow
-            SKY_STATUS_SHOWER -> R.drawable.temp_ic_rain
+            SKY_STATUS_SNOWY -> R.drawable.ic_snowy
+            SKY_STATUS_SHOWER -> R.drawable.ic_shower
             else -> R.drawable.temp_ic_error
         }
 }

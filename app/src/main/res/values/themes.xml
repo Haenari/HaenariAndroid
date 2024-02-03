@@ -3,6 +3,7 @@
     <style name="Base.Theme.Haenari" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <item name="colorSecondaryContainer">@color/transparent</item>
     </style>
 
     <style name="Theme.Haenari" parent="Base.Theme.Haenari" />

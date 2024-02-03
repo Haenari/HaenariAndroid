@@ -26,15 +26,16 @@ class HomeFragment :
         bind {
             with(state) {
                 tvLocation.text = address
-                tvWeather.text = "${
-                    Weathers.getTodayString(
-                        requireContext(),
-                        dailyWeather.precipitationTypeAM
-                    )
-                }\n${dailyWeather.minTemperature}°C ~ ${dailyWeather.maxTemperature}°C"
+                tvTemperature.text = "${dailyWeather.minTemperature}°C ~ ${dailyWeather.maxTemperature}°"
+//                tvTemperature.text = "${
+//                    Weathers.getTodayString(
+//                        requireContext(),
+//                        dailyWeather.precipitationTypeAM
+//                    )
+//                }\n${dailyWeather.minTemperature}°C ~ ${dailyWeather.maxTemperature}°"
 
                 if(dailyWeather.value.isNotEmpty()) {
-                    tvCurrentTemperature.text = "${dailyWeather.value[DateTime.now().hourOfDay].temperature}°C"
+                    tvCurrentTemperature.text = "${dailyWeather.value[DateTime.now().hourOfDay].temperature}°"
                 }
 
                 context?.let {
@@ -56,7 +57,7 @@ class HomeFragment :
 
     override fun initView() {
         bind {
-            btnCurrentLocation.setOnClickListener {
+            ibCurrentLocation.setOnClickListener {
                 Permissions.requestLocationPermission(
                     onPermissionGranted = {
                         (activity as MainActivity).requestLocation()

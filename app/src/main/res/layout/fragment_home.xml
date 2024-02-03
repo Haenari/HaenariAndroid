@@ -9,64 +9,55 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/clTop"
-            android:layout_width="0dp"
-            android:layout_height="56dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <TextView
-                android:id="@+id/tvTabTitle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/tab_title_home"
-                android:textSize="16dp"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
+        android:layout_height="match_parent"
+        android:background="#ABCDED">
 
         <ImageView
-            android:id="@+id/ivGpsToggle"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:id="@+id/ivGps"
+            android:layout_width="18dp"
+            android:layout_height="18dp"
             android:layout_marginVertical="20dp"
-            android:background="@drawable/temp_ic_location"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="4dp"
+            android:background="@drawable/ic_gps_small"
             app:layout_constraintEnd_toStartOf="@id/tvLocation"
-            app:layout_constraintHorizontal_chainStyle="packed"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/clTop" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/tvLocation"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginVertical="20dp"
-            android:layout_marginStart="12dp"
-            android:textSize="16dp"
-            app:layout_constraintBottom_toBottomOf="@id/ivGpsToggle"
-            app:layout_constraintEnd_toStartOf="@id/btnCurrentLocation"
-            app:layout_constraintStart_toEndOf="@id/ivGpsToggle"
-            app:layout_constraintTop_toTopOf="@id/ivGpsToggle"
+            android:textColor="@color/white"
+            android:textSize="12dp"
+            app:layout_constraintBottom_toBottomOf="@id/ivGps"
+            app:layout_constraintEnd_toStartOf="@id/ibCurrentLocation"
+            app:layout_constraintStart_toEndOf="@id/ivGps"
+            app:layout_constraintTop_toTopOf="@id/ivGps"
             tools:text="서울특별시 관악구 신사동" />
 
-        <Button
-            android:id="@+id/btnCurrentLocation"
+        <ImageButton
+            android:id="@+id/ibCurrentLocation"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="12dp"
-            android:text="현재 위치"
-            app:layout_constraintBottom_toBottomOf="@id/ivGpsToggle"
+            android:layout_marginHorizontal="20dp"
+            android:background="@drawable/ic_location"
+            app:layout_constraintBottom_toBottomOf="@id/ivGps"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/tvLocation"
-            app:layout_constraintTop_toTopOf="@id/ivGpsToggle" />
+            app:layout_constraintTop_toTopOf="@id/ivGps" />
+
+        <TextView
+            android:id="@+id/tvContent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:text="어제보다 따뜻한 날씨에요!"
+            android:textColor="@color/white"
+            android:textSize="20dp"
+            app:layout_constraintStart_toStartOf="@id/ivGps"
+            app:layout_constraintTop_toBottomOf="@id/ivGps" />
 
         <ImageView
             android:id="@+id/ivWeather"
@@ -77,7 +68,7 @@
             app:layout_constraintDimensionRatio="h, 1:1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/ivGpsToggle" />
+            app:layout_constraintTop_toBottomOf="@id/tvCurrentTemperature" />
 
         <TextView
             android:id="@+id/tvWeather"
@@ -94,20 +85,28 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:textSize="30dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tvWeather"
+            android:textColor="@color/white"
+            android:textSize="60dp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="@id/tvContent"
+            app:layout_constraintTop_toBottomOf="@id/tvContent"
             tools:text="16°C" />
 
         <TextView
             android:id="@+id/tvTemperature"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tvCurrentTemperature"
-            tools:text="0.0°C ~ 10.0°C"/>
+            android:layout_marginStart="8dp"
+            android:background="@drawable/shape_rect8_ffffff_"
+            android:paddingHorizontal="16dp"
+            android:paddingTop="6dp"
+            android:paddingBottom="6dp"
+            android:textSize="16dp"
+            android:textColor="#ABCDED"
+            app:layout_constraintBottom_toBottomOf="@id/tvCurrentTemperature"
+            app:layout_constraintStart_toEndOf="@id/tvCurrentTemperature"
+            app:layout_constraintTop_toTopOf="@id/tvCurrentTemperature"
+            tools:text="0.0°C ~ 10.0°C" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

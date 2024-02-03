@@ -1,9 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="transparent">#00000000</color>
-    <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    
-    <color name="c_505050">#FF505050</color>
+    <color name="gray_1">#FFE0E0E0</color>
+    <color name="gray_2">#FFC8C8C8</color>
+    <color name="gray_3">#FFABABAB</color>
+    <color name="gray_4">#FF8B8B8B</color>
+    <color name="gray_5">#FF6F6F6F</color>
+    <color name="gray_6">#FF505050</color>
+    <color name="dark_gray">#FF303030</color>
+    <color name="black">#FF121212</color>
+
+    <color name="c_3491FF">#FF3491FF</color>
     <color name="c_CBCBCB">#FFCBCBCB</color>
+    <color name="c_FF6465">#FFFF6465</color>
+    <color name="c_19000000">#19000000</color>
+    <color name="c_3FFFFFFF">#3FFFFFFF</color>
 </resources>

@@ -9,75 +9,57 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/clTop"
-            android:layout_width="0dp"
-            android:layout_height="56dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <TextView
-                android:id="@+id/tvTabTitle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/tab_title_weather"
-                android:textSize="16dp"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
+        android:layout_height="match_parent"
+        android:background="#ABCDED">
 
         <ImageView
-            android:id="@+id/ivGpsToggle"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:id="@+id/ivGps"
+            android:layout_width="18dp"
+            android:layout_height="18dp"
             android:layout_marginVertical="20dp"
-            android:background="@drawable/temp_ic_location"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="4dp"
+            android:background="@drawable/ic_gps_small"
             app:layout_constraintEnd_toStartOf="@id/tvLocation"
-            app:layout_constraintHorizontal_chainStyle="packed"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/clTop" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/tvLocation"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginVertical="20dp"
-            android:layout_marginStart="12dp"
-            android:textSize="16dp"
-            app:layout_constraintBottom_toBottomOf="@id/ivGpsToggle"
-            app:layout_constraintEnd_toStartOf="@id/btnCurrentLocation"
-            app:layout_constraintStart_toEndOf="@id/ivGpsToggle"
-            app:layout_constraintTop_toTopOf="@id/ivGpsToggle"
+            android:textColor="@color/white"
+            android:textSize="12dp"
+            app:layout_constraintBottom_toBottomOf="@id/ivGps"
+            app:layout_constraintEnd_toStartOf="@id/ibCurrentLocation"
+            app:layout_constraintStart_toEndOf="@id/ivGps"
+            app:layout_constraintTop_toTopOf="@id/ivGps"
             tools:text="서울특별시 관악구 신사동" />
 
-        <Button
-            android:id="@+id/btnCurrentLocation"
+        <ImageButton
+            android:id="@+id/ibCurrentLocation"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="현재 위치"
-            android:layout_marginStart="12dp"
-            app:layout_constraintBottom_toBottomOf="@id/ivGpsToggle"
+            android:layout_marginHorizontal="20dp"
+            android:background="@drawable/ic_location"
+            app:layout_constraintBottom_toBottomOf="@id/ivGps"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/tvLocation"
-            app:layout_constraintTop_toTopOf="@id/ivGpsToggle"
-            app:layout_constraintEnd_toEndOf="parent"/>
+            app:layout_constraintTop_toTopOf="@id/ivGps" />
+
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvWeather"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_margin="40dp"
+            android:layout_marginVertical="40dp"
+            android:layout_marginHorizontal="20dp"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/ivGpsToggle"
+            app:layout_constraintTop_toBottomOf="@id/ivGps"
             tools:listitem="@layout/item_weather" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

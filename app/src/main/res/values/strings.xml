@@ -6,6 +6,8 @@
     <string name="wearing">wearing</string>
     <string name="settings">settings</string>
 
+    <string name="today_kr">오늘</string>
+
     <string name="privacy_policy">개인 정보 처리 방침</string>
     <string name="terms_of_service">서비스 이용 약관</string>
     <string name="version_info">버전 정보 v %s</string>
